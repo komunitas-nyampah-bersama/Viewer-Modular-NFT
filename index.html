@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperModularDeFiHub | Ekosistem NFT Modular</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #2c7744;
+            --accent: #b21f1f;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gradient: linear-gradient(135deg, #1a2a6c, #2c7744, #b21f1f);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--gradient);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .intro {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .wallet-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .wallet-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wallet-address {
+            font-family: monospace;
+            background: rgba(26, 42, 108, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .pillars-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pillar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            width: 100%;
+            max-width: 350px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--secondary);
+        }
+
+        .pillar:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .pillar:nth-child(2) {
+            border-top-color: var(--primary);
+        }
+
+        .pillar:nth-child(3) {
+            border-top-color: var(--accent);
+        }
+
+        .pillar:nth-child(4) {
+            border-top-color: #f46b45;
+        }
+
+        .pillar:nth-child(5) {
+            border-top-color: #4A154B;
+        }
+
+        .pillar-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .pillar-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .pillar-content {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .module-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            background: rgba(26, 42, 108, 0.1);
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.1);
+        }
+
+        .ipfs-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(26, 42, 108, 0.03);
+        }
+
+        .ipfs-upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(26, 42, 108, 0.05);
+        }
+
+        .ipfs-upload-area i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .ipfs-preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .ipfs-preview img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nft-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .nft-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nft-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .nft-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .nft-details {
+            padding: 20px;
+        }
+
+        .nft-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .nft-id {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .nft-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .feature-tag {
+            background: rgba(44, 119, 68, 0.1);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .power-up-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
+            border: 2px solid var(--secondary);
+            position: relative;
+        }
+
+        .power-up-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .power-up-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .power-up-item {
+            background: rgba(44, 119, 68, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(44, 119, 68, 0.2);
+        }
+
+        .power-up-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .power-up-item i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .power-up-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .power-up-desc {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .pillars-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pillar {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .wallet-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .wallet-info {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-gradient"></div>
+            <h1>SuperModularDeFiHub</h1>
+            <div class="subtitle">Ekosistem NFT Modular untuk Transformasi Sosial & Ekonomi</div>
+            <div class="intro">
+                <p>Platform terdesentralisasi yang menggabungkan NFT Power-Up, modularitas, dan ekonomi sirkular untuk menciptakan ekosistem inklusif dan berkelanjutan.</p>
+                <p>Miliki, kustomisasi, dan tingkatkan pengalaman web3 Anda dengan NFT Layout Modular.</p>
+            </div>
+        </header>
+
+        <div class="wallet-section">
+            <div class="wallet-info">
+                <i class="fas fa-wallet"></i>
+                <div class="wallet-address" id="wallet-address">Belum terhubung</div>
+            </div>
+            <div>
+                <button class="btn btn-primary" id="connect-wallet">
+                    <i class="fas fa-plug"></i> Sambungkan Wallet
+                </button>
+            </div>
+        </div>
+
+        <div class="pillars-container">
+            <div class="pillar">
+                <div class="pillar-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <h2 class="pillar-title">2BCycle</h2>
+                <div class="pillar-content">
+                    <p>Ideologi utama yang menggabungkan penilaian nilai proses (atensi) dan transformasi hasil untuk membangun trust di berbagai bidang.</p>
+                </div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h2 class="pillar-title">BlockCycle</h2>
+                <div class="pillar-content">
+                    <p>Kerangka berpikir inovatif yang mengevaluasi atensi dan perilaku melalui node proses.</p>
+                </div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h2 class="pillar-title">EcoCycle</h2>
+                <div class="pillar-content">
+                    <p>Pilar keberlanjutan lingkungan yang mengintegrasikan praktik ekonomi sirkular dengan teknologi.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="module-container">
+            <h2 class="section-title">Modul Utama</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="mint">Mint NFT</button>
+                <button class="tab-btn" data-tab="nfts">NFT Saya</button>
+                <button class="tab-btn" data-tab="power">NFT Power-Up</button>
+                <button class="tab-btn" data-tab="modular">Layout Modular</button>
+            </div>
+            
+            <div class="tab-content active" id="mint-tab">
+                <div class="form-group">
+                    <label for="nft-type">Jenis NFT</label>
+                    <select class="form-control" id="nft-type">
+                        <option value="general">NFT Umum</option>
+                        <option value="soulbound">Soulbound NFT</option>
+                        <option value="powerup">NFT Power-Up</option>
+                        <option value="layout">NFT Layout Modular</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nft-name">Nama NFT</label>
+                    <input type="text" class="form-control" id="nft-name" placeholder="Masukkan nama NFT">
+                </div>
+                
+                <div class="form-group">
+                    <label for="nft-description">Deskripsi</label>
+                    <textarea class="form-control" id="nft-description" rows="3" placeholder="Deskripsi NFT"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Unggah Konten (Gambar, HTML, atau JSON)</label>
+                    <div class="ipfs-upload-area" id="ipfs-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Klik atau tarik file ke sini</h3>
+                        <p>Format yang didukung: JPG, PNG, GIF, HTML, JSON</p>
+                        <input type="file" id="ipfs-file" hidden>
+                    </div>
+                    <div class="ipfs-preview" id="ipfs-preview"></div>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-primary" id="mint-nft-btn">
+                        <i class="fas fa-magic"></i> Mint NFT
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="nfts-tab">
+                <div class="nft-container" id="user-nfts">
+                    <!-- NFT akan dimuat di sini secara dinamis -->
+                    <div class="nft-placeholder">
+                        <p>Belum ada NFT. Mulai dengan mencetak NFT pertama Anda!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="power-tab">
+                <div class="power-up-section">
+                    <div class="power-up-badge">POWER-UP</div>
+                    <h3>Fitur Premium NFT Power-Up</h3>
+                    <p>Aktifkan fitur eksklusif dengan memiliki NFT Power-Up di wallet Anda</p>
+                    
+                    <div class="power-up-grid">
+                        <div class="power-up-item">
+                            <i class="fas fa-bolt"></i>
+                            <h4 class="power-up-title">Mode Ultra-Cepat</h4>
+                            <p class="power-up-desc">Akses prioritas ke jaringan dan transaksi lebih cepat</p>
+                        </div>
+                        
+                        <div class="power-up-item">
+                            <i class="fas fa-chart-line"></i>
+                            <h4 class="power-up-title">Analitik Pro</h4>
+                            <p class="power-up-desc">Akses ke data pasar dan analitik lanjutan</p>
+                        </div>
+                        
+                        <div class="power-up-item">
+                            <i class="fas fa-palette"></i>
+                            <h4 class="power-up-title">Tema Eksklusif</h4>
+                            <p class="power-up-desc">Kustomisasi tampilan dengan tema premium</p>
+                        </div>
+                        
+                        <div class="power-up-item">
+                            <i class="fas fa-cubes"></i>
+                            <h4 class="power-up-title">Modul Premium</h4>
+                            <p class="power-up-desc">Akses ke modul dan fitur premium</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 30px; text-align: center;">
+                        <button class="btn btn-accent" id="check-powerup">
+                            <i class="fas fa-search"></i> Periksa NFT Power-Up Saya
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="modular-tab">
+                <div class="form-group">
+                    <label for="layout-select">Pilih Layout Modular</label>
+                    <select class="form-control" id="layout-select">
+                        <option value="default">Tata Letak Dasar</option>
+                        <option value="dark">Mode Gelap</option>
+                        <option value="minimal">Minimalis</option>
+                        <option value="professional">Profesional</option>
+                        <option value="custom">Kustom (Unggah HTML)</option>
+                    </select>
+                </div>
+                
+                <div id="custom-layout-upload" style="display: none; margin-top: 20px;">
+                    <div class="form-group">
+                        <label>Unggah HTML Layout Modular</label>
+                        <div class="ipfs-upload-area" id="layout-upload-area">
+                            <i class="fas fa-file-code"></i>
+                            <h3>Tarik file HTML ke sini</h3>
+                            <p>Format: .html</p>
+                            <input type="file" id="layout-file" accept=".html" hidden>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-secondary" id="apply-layout">
+                        <i class="fas fa-paint-roller"></i> Terapkan Layout
+                    </button>
+                </div>
+                
+                <div class="form-group" style="margin-top: 30px;">
+                    <h4>Prinsip Layout Modular</h4>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Setiap layout adalah NFT yang dapat dimiliki</li>
+                        <li>Kustomisasi tanpa batas dengan HTML/CSS/JS</li>
+                        <li>Kompatibel dengan semua modul utama</li>
+                        <li>Dapat diperdagangkan di pasar NFT</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2023 SuperModularDeFiHub | Ekosistem NFT Modular</p>
+            <p>Membangun masa depan web3 yang terdesentralisasi dan dapat dimiliki</p>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi utama
+        const config = {
+            // Alamat kontrak (ganti dengan alamat kontrak sebenarnya)
+            NFT_CONTRACT_ADDRESS: "0x1234567890abcdef1234567890abcdef12345678",
+            POWER_UP_CONTRACT_ADDRESS: "0xabcdef1234567890abcdef1234567890abcdef12",
+            // ABI kontrak (disederhanakan untuk contoh)
+            NFT_CONTRACT_ABI: [
+                "function mintNFT(address recipient, string memory tokenURI) public returns (uint256)",
+                "function balanceOf(address owner) public view returns (uint256)",
+                "function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256)",
+                "function tokenURI(uint256 tokenId) public view returns (string memory)"
+            ],
+            // Layanan IPFS (gunakan layanan sebenarnya untuk produksi)
+            IPFS_API: "https://api.ipfs.io/api/v0/add",
+            IPFS_GATEWAY: "https://ipfs.io/ipfs/"
+        };
+
+        // State aplikasi
+        let appState = {
+            userAddress: null,
+            provider: null,
+            signer: null,
+            nftContract: null,
+            powerUpContract: null,
+            hasPowerUp: false,
+            userNFTs: []
+        };
+
+        // Elemen DOM
+        const DOM = {
+            walletAddress: document.getElementById('wallet-address'),
+            connectWallet: document.getElementById('connect-wallet'),
+            ipfsUploadArea: document.getElementById('ipfs-upload-area'),
+            ipfsFile: document.getElementById('ipfs-file'),
+            ipfsPreview: document.getElementById('ipfs-preview'),
+            mintNFTBtn: document.getElementById('mint-nft-btn'),
+            userNFTs: document.getElementById('user-nfts'),
+            checkPowerUp: document.getElementById('check-powerup'),
+            layoutSelect: document.getElementById('layout-select'),
+            customLayoutUpload: document.getElementById('custom-layout-upload'),
+            applyLayout: document.getElementById('apply-layout')
+        };
+
+        // Inisialisasi aplikasi
+        async function initApp() {
+            setupEventListeners();
+            checkWalletConnection();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Sambungkan wallet
+            DOM.connectWallet.addEventListener('click', connectWallet);
+            
+            // Unggah file ke IPFS
+            DOM.ipfsUploadArea.addEventListener('click', () => DOM.ipfsFile.click());
+            DOM.ipfsFile.addEventListener('change', handleFileUpload);
+            
+            // Mint NFT
+            DOM.mintNFTBtn.addEventListener('click', mintNFT);
+            
+            // Tab navigation
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Hapus kelas aktif dari semua tab
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Tambahkan kelas aktif ke tab yang diklik
+                    btn.classList.add('active');
+                    document.getElementById(`${btn.dataset.tab}-tab`).classList.add('active');
+                    
+                    // Jika tab NFT dipilih, muat NFT pengguna
+                    if (btn.dataset.tab === 'nfts') {
+                        loadUserNFTs();
+                    }
+                });
+            });
+            
+            // Periksa NFT Power-Up
+            DOM.checkPowerUp.addEventListener('click', checkForPowerUpNFT);
+            
+            // Pilihan layout modular
+            DOM.layoutSelect.addEventListener('change', function() {
+                DOM.customLayoutUpload.style.display = 
+                    this.value === 'custom' ? 'block' : 'none';
+            });
+            
+            // Terapkan layout
+            DOM.applyLayout.addEventListener('click', applyLayout);
+        }
+
+        // Cek apakah wallet sudah terhubung
+        async function checkWalletConnection() {
+            if (window.ethereum && window.ethereum.selectedAddress) {
+                await connectWallet();
+            }
+        }
+
+        // Sambungkan wallet
+        async function connectWallet() {
+            try {
+                // Minta akses ke akun Ethereum
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+                
+                // Simpan alamat pengguna
+                appState.userAddress = accounts[0];
+                DOM.walletAddress.textContent = 
+                    `${appState.userAddress.substring(0, 6)}...${appState.userAddress.substring(38)}`;
+                
+                // Setup provider dan signer
+                appState.provider = new ethers.providers.Web3Provider(window.ethereum);
+                appState.signer = appState.provider.getSigner();
+                
+                // Setup kontrak
+                appState.nftContract = new ethers.Contract(
+                    config.NFT_CONTRACT_ADDRESS,
+                    config.NFT_CONTRACT_ABI,
+                    appState.signer
+                );
+                
+                // Periksa NFT Power-Up
+                await checkForPowerUpNFT();
+                
+                // Tampilkan notifikasi
+                showNotification('Wallet berhasil terhubung!', 'success');
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                showNotification(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Handle file upload untuk IPFS
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            try {
+                // Tampilkan preview untuk gambar
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        DOM.ipfsPreview.innerHTML = `
+                            <img src="${e.target.result}" alt="Preview" style="max-width: 300px;">
+                        `;
+                    };
+                    reader.readAsDataURL(file);
+                } else if (file.name.endsWith('.html')) {
+                    DOM.ipfsPreview.innerHTML = `
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 8px;">
+                            <i class="fas fa-file-code" style="font-size: 3rem; color: #1a2a6c;"></i>
+                            <h4>${file.name}</h4>
+                            <p>File HTML Layout Modular</p>
+                        </div>
+                    `;
+                } else {
+                    DOM.ipfsPreview.innerHTML = `
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 8px;">
+                            <i class="fas fa-file" style="font-size: 3rem; color: #1a2a6c;"></i>
+                            <h4>${file.name}</h4>
+                            <p>${(file.size / 1024).toFixed(2)} KB</p>
+                        </div>
+                    `;
+                }
+                
+                // Simulasikan unggahan ke IPFS (dalam implementasi nyata, gunakan API IPFS)
+                showNotification('File berhasil diunggah ke IPFS!', 'success');
+                
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                showNotification(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Mint NFT baru
+        async function mintNFT() {
+            if (!appState.userAddress) {
+                showNotification('Silakan sambungkan wallet terlebih dahulu!', 'warning');
+                return;
+            }
+            
+            try {
+                // Dapatkan detail NFT
+                const nftType = document.getElementById('nft-type').value;
+                const name = document.getElementById('nft-name').value || "NFT Tanpa Nama";
+                const description = document.getElementById('nft-description').value || "Deskripsi default";
+                
+                // Buat metadata NFT
+                const metadata = {
+                    name,
+                    description,
+                    attributes: [
+                        { trait_type: "Tipe", value: nftType },
+                        { trait_type: "Tanggal Dibuat", value: new Date().toISOString() }
+                    ]
+                };
+                
+                // Simulasikan pembuatan metadata di IPFS
+                const metadataURI = "ipfs://Qm..."; // CID metadata
+                
+                // Mint NFT
+                // (Dalam implementasi nyata, panggil fungsi mint di kontrak)
+                const tx = {
+                    hash: "0x" + Math.random().toString(16).substr(2, 64)
+                };
+                
+                showNotification(`NFT berhasil dicetak! TX Hash: ${tx.hash}`, 'success');
+                
+                // Jika berhasil, reset form
+                document.getElementById('nft-name').value = '';
+                document.getElementById('nft-description').value = '';
+                DOM.ipfsPreview.innerHTML = '';
+                
+                // Perbarui daftar NFT pengguna
+                loadUserNFTs();
+                
+            } catch (error) {
+                console.error('Error minting NFT:', error);
+                showNotification(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Muat NFT pengguna
+        async function loadUserNFTs() {
+            if (!appState.userAddress) {
+                DOM.userNFTs.innerHTML = `
+                    <div class="nft-placeholder">
+                        <p>Silakan sambungkan wallet untuk melihat NFT Anda</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                // Simulasikan pengambilan NFT
+                const mockNFTs = [
+                    { id: 1, name: "Genesis NFT", type: "general", image: "https://via.placeholder.com/300" },
+                    { id: 2, name: "Soulbound Identity", type: "soulbound", image: "https://via.placeholder.com/300/2c7744" },
+                    { id: 3, name: "Ultra-Fast Power-Up", type: "powerup", image: "https://via.placeholder.com/300/b21f1f" },
+                    { id: 4, name: "Dark Mode Layout", type: "layout", image: "https://via.placeholder.com/300/1a2a6c" }
+                ];
+                
+                // Render NFT
+                DOM.userNFTs.innerHTML = mockNFTs.map(nft => `
+                    <div class="nft-card">
+                        <img src="${nft.image}" alt="${nft.name}" class="nft-image">
+                        <div class="nft-details">
+                            <h3 class="nft-title">${nft.name}</h3>
+                            <div class="nft-id">ID: #${nft.id}</div>
+                            <div class="nft-features">
+                                <span class="feature-tag">${nft.type.toUpperCase()}</span>
+                                ${nft.type === 'powerup' ? '<span class="feature-tag">POWER-UP</span>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error loading NFTs:', error);
+                DOM.userNFTs.innerHTML = `
+                    <div class="nft-placeholder">
+                        <p>Error memuat NFT: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Periksa apakah pengguna memiliki NFT Power-Up
+        async function checkForPowerUpNFT() {
+            if (!appState.userAddress) {
+                showNotification('Silakan sambungkan wallet terlebih dahulu!', 'warning');
+                return;
+            }
+            
+            try {
+                // Simulasikan pemeriksaan kepemilikan NFT Power-Up
+                appState.hasPowerUp = Math.random() > 0.5; // 50% chance untuk demo
+                
+                if (appState.hasPowerUp) {
+                    showNotification('Anda memiliki NFT Power-Up! Fitur premium diaktifkan.', 'success');
+                    document.querySelectorAll('.power-up-item').forEach(item => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    });
+                } else {
+                    showNotification('Anda belum memiliki NFT Power-Up', 'info');
+                    document.querySelectorAll('.power-up-item').forEach(item => {
+                        item.style.opacity = '0.7';
+                        item.style.transform = 'scale(0.95)';
+                    });
+                }
+                
+            } catch (error) {
+                console.error('Error checking Power-Up NFT:', error);
+                showNotification(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Terapkan layout modular
+        function applyLayout() {
+            const layoutType = DOM.layoutSelect.value;
+            
+            if (layoutType === 'custom') {
+                if (!DOM.ipfsFile.files.length) {
+                    showNotification('Silakan unggah file HTML terlebih dahulu', 'warning');
+                    return;
+                }
+                showNotification('Layout kustom diterapkan!', 'success');
+            } else {
+                showNotification(`Layout ${layoutType} diterapkan!`, 'success');
+            }
+            
+            // Simulasikan perubahan UI berdasarkan layout
+            document.body.classList.remove('dark-mode', 'minimal-mode', 'professional-mode');
+            
+            if (layoutType === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else if (layoutType === 'minimal') {
+                document.body.classList.add('minimal-mode');
+            } else if (layoutType === 'professional') {
+                document.body.classList.add('professional-mode');
+            }
+        }
+
+        // Tampilkan notifikasi
+        function showNotification(message, type) {
+            // Hapus notifikasi sebelumnya
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            // Buat elemen notifikasi
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div>${message}</div>
+                <i class="fas fa-times close-btn"></i>
+            `;
+            
+            // Tambahkan ke dokumen
+            document.body.appendChild(notification);
+            
+            // Animasi masuk
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
+            }, 10);
+            
+            // Tombol tutup
+            notification.querySelector('.close-btn').addEventListener('click', () => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Hapus otomatis setelah 5 detik
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(-20px)';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        // Inisialisasi aplikasi saat DOM siap
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+
+    <style>
+        /* Notifikasi */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 400px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+        
+        .notification.success {
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .notification.error {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .notification.warning {
+            border-left: 4px solid #ffc107;
+        }
+        
+        .notification.info {
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .notification .close-btn {
+            margin-left: 15px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .notification .close-btn:hover {
+            opacity: 1;
+        }
+        
+        /* Mode gelap */
+        body.dark-mode {
+            --primary: #2a3f5f;
+            --secondary: #3a9e75;
+            --accent: #d1515a;
+            --gradient: linear-gradient(135deg, #121a2e, #1e3b29, #4a1a1f);
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode header,
+        body.dark-mode .pillar,
+        body.dark-mode .module-container,
+        body.dark-mode .wallet-section,
+        body.dark-mode .power-up-section {
+            background: rgba(30, 30, 40, 0.95);
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .pillar-title,
+        body.dark-mode .section-title,
+        body.dark-mode .nft-title {
+            color: #a0c4ff;
+        }
+        
+        /* Mode minimalis */
+        body.minimal-mode {
+            --primary: #3a506b;
+            --secondary: #5bc0be;
+            --accent: #6fffe9;
+            --gradient: linear-gradient(135deg, #1c2541, #3a506b);
+        }
+        
+        body.minimal-mode .pillar,
+        body.minimal-mode .module-container,
+        body.minimal-mode .wallet-section,
+        body.minimal-mode .power-up-section {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Mode profesional */
+        body.professional-mode {
+            --primary: #2d3748;
+            --secondary: #4a5568;
+            --accent: #e53e3e;
+            --gradient: linear-gradient(135deg, #2d3748, #4a5568);
+        }
+        
+        body.professional-mode .pillar,
+        body.professional-mode .module-container,
+        body.professional-mode .wallet-section,
+        body.professional-mode .power-up-section {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</body>
+</html>
